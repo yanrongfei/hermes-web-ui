@@ -199,7 +199,7 @@ async function resolveSkillDirFromConfig(
  * or by containing subdirectories with SKILL.md (three-level pattern).
  * Skills without a parent category (flat skills) are grouped under the "misc" category.
  */
-async function scanSkillsDir(skillsDir: string, bundledManifest: Map<string, string>, hubNames: Set<string>, disabledList: string[], usageStats: Map<string, UsageStats>) {
+export async function scanSkillsDir(skillsDir: string, bundledManifest: Map<string, string>, hubNames: Set<string>, disabledList: string[], usageStats: Map<string, UsageStats>) {
   const allEntries = await readdir(skillsDir, { withFileTypes: true })
   const dirNames: string[] = []
   for (const e of allEntries) {
