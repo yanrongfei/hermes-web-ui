@@ -28,10 +28,8 @@ import { listProfileNamesFromDisk } from '../services/hermes/hermes-profile'
  */
 export async function authStatus(ctx: Context) {
   const disabled = process.env.AUTH_DISABLED === '1' || process.env.AUTH_DISABLED === 'true'
-  const firstUser = findFirstUser()
   ctx.body = {
     hasPasswordLogin: !disabled,
-    username: firstUser?.username || DEFAULT_USERNAME,
     hasUsers: countUsers() > 0,
   }
 }
