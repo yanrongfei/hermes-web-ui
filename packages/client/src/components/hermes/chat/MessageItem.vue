@@ -240,9 +240,12 @@ const thinkingStreamingNow = computed(() => {
 
 const thinkingOverride = ref<boolean | null>(null);
 
+// User toggle (thinkingOverride) always takes priority.
+// During streaming, only auto-expand if show_reasoning is enabled.
+// When not streaming, use the show_reasoning setting as default.
 const thinkingExpanded = computed(() => {
-  if (thinkingStreamingNow.value) return true;
   if (thinkingOverride.value !== null) return thinkingOverride.value;
+  if (thinkingStreamingNow.value) return !!settingsStore.display.show_reasoning;
   return !!settingsStore.display.show_reasoning;
 });
 
@@ -847,7 +850,7 @@ onBeforeUnmount(() => {
               </div>
             </div>
             <div
-              v-if="hasThinking"
+              v-if="hasThinking && !!settingsStore.display.show_reasoning"
               class="thinking-block"
               :class="{ expanded: thinkingExpanded }"
             >

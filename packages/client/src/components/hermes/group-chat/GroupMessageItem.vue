@@ -87,9 +87,10 @@ const thinkingStreamingNow = computed(() => {
     return false
 })
 const thinkingOverride = ref<boolean | null>(null)
+// User toggle (thinkingOverride) always takes priority over auto-expand during streaming.
 const thinkingExpanded = computed(() => {
-    if (thinkingStreamingNow.value) return true
     if (thinkingOverride.value !== null) return thinkingOverride.value
+    if (thinkingStreamingNow.value) return true
     return false
 })
 const assistantBody = computed(() => parsedThinking.value.body || props.message.content || '')
